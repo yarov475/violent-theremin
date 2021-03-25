@@ -20,24 +20,35 @@
   <p class="start-message">Click on the browser window or press the tab key to start the app.</p>
 
 	<div class="app-contents">
-    <h1>Violent Theremin</h1>
+    <h1>Ритм и мелодия</h1>
+        <ul class="control-message">
+            <li>Положение персонажа: <span id="pos"></span> </li>
+            <li>Громкость: <span id="vol"></span></li>
+            <li>Частота:   <span id="freq"></span> </li>
+            <li>Цвет:  <span id="color"></span></li>
+        </ul>
 
-    <button class="mute" data-muted="false">Mute</button>
-    <button class="clear">Clear screen</button>
-    <p class="control-message">Use mouse or arrow keys to control theremin.</p>
+        <p class=" content">
+            Слева направо возрастает частота. ритм превращается в мелодию. Ритм прерывыстая мелодия тягуча.
+            Пример синестезии. Условно преравняны пространственное положение, звук и цвет. Можно усложнить взаимосвязь, связать цвет и звук более точно,
+            но для нащей модели достаточно показатб,как может одно влиять на другое и как одно может определять другое.
+            Тк любая из переменных уникальна и определяет другую. По звуку можноопределить положение.
+            Это концепт. Музыки без эстетики, как особого языка всеобщнотсти.
+        </p>
+
 
     <canvas class="canvas">
       Your browser does not support HTML5 canvas
     </canvas>
 	</div>
-
-  <!-- The following element pulls in the script for the default template functionality -->
-
-    <script src="scripts/install.js"></script>
-
-    <!-- Below is your custom application script -->
-
     <script src="scripts/app.js"></script>
+<!--//TODO-->
+исправить баг с отрисовкаой
+  отксситьтаекст
+поработать со звуком
+опубликовать на гитхабе
+отправить маркову за рекомендацией
+сделать футер отсылку к источнику пчдст
 
 </body>
 </html>

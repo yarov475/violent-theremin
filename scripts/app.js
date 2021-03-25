@@ -30,12 +30,13 @@ function init() {
   const WIDTH = window.innerWidth;
   const HEIGHT = window.innerHeight;
 
-  const maxFreq = 6000;
+  const maxFreq = 30;
   const maxVol = 0.02;
   const initialVol = 0.001;
-
+  oscillator.type = 'square';
+  oscillator.frequency.value = 30;
   // set options for the oscillator
-  oscillator.detune.value = 100; // value in cents
+  oscillator.detune.value = 30; // value in cents
   oscillator.start(0);
 
   oscillator.onended = function() {
@@ -61,25 +62,24 @@ function init() {
       CurY = e.pageY;
 
       oscillator.frequency.value = (CurX/WIDTH) * maxFreq;
+      var freq = (CurX/WIDTH) * maxFreq;
       gainNode.gain.value = (CurY/HEIGHT) * maxVol;
+      var volume = (CurY/HEIGHT) * maxVol
 
       canvasDraw();
+      console.log("x: "+CurX+"y: "+CurY  +"freq: "+freq + "volume: "+ volume);
+      let pos = document.getElementById('pos');
+      let vol = document.getElementById('vol');
+      let freqShow = document.getElementById('freq');
+     pos.innerHTML = " вертикаль: " + CurX+ "горизонталь: " + CurY;
+    vol.innerHTML = "громкость = вертикаль: " + CurY;
+    freqShow.innerHTML = "частота = горизонталь: "+ CurX;
+
+
   }
 
-  // mute button
-  const mute = document.querySelector('.mute');
 
-  mute.onclick = function() {
-    if (mute.getAttribute('data-muted') === 'false') {
-      gainNode.disconnect(audioCtx.destination);
-      mute.setAttribute('data-muted', 'true');
-      mute.innerHTML = "Unmute";
-    } else {
-      gainNode.connect(audioCtx.destination);
-      mute.setAttribute('data-muted', 'false');
-      mute.innerHTML = "Mute";
-    };
-  }
+
 
   // canvas visualization
   function random(number1,number2) {
@@ -93,13 +93,10 @@ function init() {
   canvas.height = HEIGHT;
 
   function canvasDraw() {
-    if (KeyFlag) {
-      rX = KeyX;
-      rY = KeyY;
-    } else {
+
       rX = CurX;
       rY = CurY;
-    }
+
 
     rC = Math.floor((gainNode.gain.value/maxVol)*30);
 
@@ -107,73 +104,19 @@ function init() {
 
     for (let i = 1; i <= 15; i = i+2) {
       canvasCtx.beginPath();
-      canvasCtx.fillStyle = 'rgb(' + 100+(i*10) + ',' + Math.floor((gainNode.gain.value/maxVol)*255) + ',' + Math.floor((oscillator.frequency.value/maxFreq)*255) + ')';
+      let colorShow =      canvasCtx.fillStyle = 'rgb(' + 1+(i) + ',' + Math.floor((gainNode.gain.value/maxVol)*100) + ',' + Math.floor((oscillator.frequency.value/maxFreq)*100) + ')';
+     canvasCtx.fillStyle = 'rgb(' + 1+(i) + ',' + Math.floor((gainNode.gain.value/maxVol)*200) + ',' + Math.floor((oscillator.frequency.value/maxFreq)*200) + ')';
       canvasCtx.arc(rX+random(0,50),rY+random(0,50),rC/2+i,(Math.PI/180)*0,(Math.PI/180)*360,false);
       canvasCtx.fill();
       canvasCtx.closePath();
+
+      let color = document.getElementById('color');
+      color.innerHTML = "цвет = частота / громкость: " + colorShow;
+
     }
   }
 
-  // clear screen
-  const clear = document.querySelector('.clear');
 
-  clear.onclick = function() {
-    canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
-  }
-
-  // keyboard controls
-  const body = document.querySelector('body');
-
-  let KeyX = 1;
-  let KeyY = 0.01;
-  let KeyFlag = false;
-
-  const ARROW_LEFT = 'ArrowLeft';
-  const ARROW_RIGHT = 'ArrowRight';
-  const ARROW_UP = 'ArrowUp';
-  const ARROW_DOWN = 'ArrowDown';
-
-  body.onkeydown = function(e) {
-    KeyFlag = true;
-
-    if (e.code === ARROW_LEFT) {
-      KeyX -= 20;
-    }
-
-    if (e.code === ARROW_RIGHT) {
-      KeyX += 20;
-    }
-
-    if (e.code === ARROW_UP) {
-      KeyY -= 20;
-    }
-
-    if (e.code === ARROW_DOWN) {
-      KeyY += 20;
-    }
-
-    // set max and min constraints for KeyX and KeyY
-    if (KeyX < 1) {
-      KeyX = 1;
-    }
-
-    if (KeyX > WIDTH) {
-      KeyX = WIDTH;
-    }
-
-    if (KeyY < 0.01) {
-      KeyY = 0.01;
-    }
-
-    if (KeyY > HEIGHT) {
-      KeyY = HEIGHT;
-    }
-
-    oscillator.frequency.value = (KeyX/WIDTH) * maxFreq;
-    gainNode.gain.value = (KeyY/HEIGHT) * maxVol;
-
-    canvasDraw();
-  };
 
   isAppInit = true;
 }
