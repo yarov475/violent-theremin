@@ -46,3 +46,10 @@ h1 , .content{
   left: 5px;
     color: #eeeeee;
 }
+.white{
+  color: #c0c0c0;
+}
+.footer{
+  background-color: darkgrey;
+  display: flex;
+}

@@ -2,7 +2,6 @@ const appContents = document.querySelector('.app-contents');
 const startMessage = document.querySelector('.start-message');
 let isAppInit = false;
 appContents.style.display = 'none';
-
 window.addEventListener('keydown', init);
 window.addEventListener('click', init);
 
@@ -33,10 +32,10 @@ function init() {
   const maxFreq = 30;
   const maxVol = 0.02;
   const initialVol = 0.001;
-  oscillator.type = 'square';
+  oscillator.type = 'triangle';
   oscillator.frequency.value = 30;
   // set options for the oscillator
-  oscillator.detune.value = 30; // value in cents
+  oscillator.detune.value = 40; // value in cents
   oscillator.start(0);
 
   oscillator.onended = function() {
@@ -50,14 +49,11 @@ function init() {
   // Mouse pointer coordinates
   let CurX;
   let CurY;
-
   // Get new mouse pointer coordinates when mouse is moved
   // then set new gain and pitch values
   document.onmousemove = updatePage;
-
   function updatePage(e) {
       KeyFlag = false;
-
       CurX = e.pageX;
       CurY = e.pageY;
 
