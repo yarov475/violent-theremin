@@ -1,55 +1,91 @@
-/* general styling */
-
+/* General Styling */
 html {
-  font-size: 10px;
+  font-size: 62.5%; /* 1rem = 10px, easier scaling */
   height: 100%;
 }
 
 body {
-	width: 100%;
-	height: inherit;
-    background-color: #000a12;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #000a12;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 canvas {
   display: block;
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
 }
 
-/* header styling */
-
-h1 , .content{
+/* Header Styling */
+h1, .content {
   position: absolute;
-  bottom: 10px;
-  right: 15px;
+  bottom: 2vw;
+  right: 3vw;
   font-size: 3rem;
   margin: 0;
   color: #eeeeee;
-  text-shadow: 0 0 10px rgba(0,0,0,0.3) ;
+  text-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 2;
 }
 
-
+/* Adaptive Classes */
 .clear {
-  top: 6px;
-  left: 5px;
+  position: absolute;
+  top: 1vw;
+  left: 1vw;
 }
 
 .start-message {
   position: absolute;
   font-size: 1.4rem;
-  left: 5px;
+  left: 1vw;
+  bottom: 8vw;
+  color: #eeeeee;
 }
 
 .control-message {
   position: absolute;
   font-size: 1.4rem;
-  top: 70px;
-  left: 5px;
-    color: #eeeeee;
+  top: 7vw;
+  left: 1vw;
+  color: #eeeeee;
 }
-.white{
+
+.white {
   color: #c0c0c0;
 }
-.footer{
+
+.footer {
   background-color: darkgrey;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  width: 100%;
+  min-height: 5vh;
+  font-size: 1.6rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  h1, .content {
+    font-size: 2rem;
+    bottom: 3vw;
+    right: 2vw;
+  }
+  .start-message, .control-message {
+    font-size: 1.1rem;
+    left: 2vw;
+  }
+  .footer {
+    font-size: 1.2rem;
+    flex-direction: column;
+    padding: 0.5rem;
+  }
 }
